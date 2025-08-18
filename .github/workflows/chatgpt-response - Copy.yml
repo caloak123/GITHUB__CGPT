@@ -28,11 +28,11 @@ jobs:
               ]
             });
             await github.rest.issues.createComment({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
               issue_number: context.payload.issue.number,
               body: completion.data.choices[0].message.content
     git add .github/workflows/chatgpt-response.yml
+    
 
-git sta
-
+            
