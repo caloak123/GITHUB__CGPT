@@ -10,9 +10,9 @@ jobs:
 
     steps:
       - name: ChatGPT Issue Reply
+        uses: actions/github-script@v6
         env:
           CHATGPT_KEY: ${{ secrets.chatgpt_key }}
-        uses: actions/github-script@v6
         with:
           script: |
             const { Configuration, OpenAIApi } = require("openai");
@@ -24,11 +24,12 @@ jobs:
               model: "gpt-4o-mini",
               messages: [
                 { role: "system", content: "You are a helpful assistant." },
-                { role: "user", content: issueText }
+                { role: "user",   content: issueText }
               ]
             });
             await github.rest.issues.createComment({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
+              owner:        context.repo.owner,
+              repo:         context.repo.repo,
               issue_number: context.payload.issue.number,
-              body: completion.data.choices[0].message.content
+              body:         completion.data.choices[0].message.content
+            });
