@@ -1,0 +1,133 @@
+name: ChatGPT Auto-Reply
+
+on:
+  workflow_dispatch:
+  issues:
+    types: [opened]
+
+jobs:
+  reply:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: ChatGPT Issue Reply
+        uses: actions/github-script@v6
+        env:
+          CHATGPT_KEY: ${{ secrets.chatgpt_key }}
+        with:
+          script: |
+            const { Configuration, OpenAIApi } = require("openai");
+            const openai = new OpenAIApi(
+              new Configuration({ apiKey: process.env.CHATGPT_KEY })
+            );
+            const issueText = context.payload.issue.body;
+            const completion = await openai.createChatCompletion({
+              model: "gpt-4o-mini",
+              messages: [
+                { role: "system", content: "You are a helpful assistant." },
+                { role: "user",   content: issueText }
+              ]
+            });
+            await github.rest.issues.createComment({
+              owner:        context.repo.owner,
+              repo:         context.repo.repo,
+              issue_number: context.payload.issue.number,
+              body:         completion.data.choices[0].message.content
+            });
+touch README.md
+# GITHUB---CGPT
+
+Coalition testbed for simulating ChatGPT-style workflows inside GitHub.  
+Used to validate prompt responsiveness, layout logic, and symbolic scaffolding.
+  mkdir prompts
+touch prompts/test-prompt.md
+  ## Prompt: What is the symbolic logic behind lunar festival cycles?
+
+Expected Response:  
+A modular breakdown of lunar phases, mythic overlays, and seasonal resonance across cultures.
+git add .github/workflows/issue-reply.yml
+git commit -m "Add issue reply workflow"
+git push
+git add .github/workflows/issue-reply.yml
+git commit -m "Add issue reply workflow"
+git push
+git status
+git add .github/workflows/issue-reply.yml
+git commit -m "Reconfirm issue reply workflow"
+git push
+name: Issue Auto Reply
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  reply:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Reply to issue
+        uses: actions/github-script@v6
+        with:
+          script: |
+            github.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: "✅ Baseline confirmed. Issue received."
+            })
+            git add .github/workflows/issue-reply.yml
+git commit -m "Deploy baseline issue reply workflow"
+git push
+git add .github/workflows/issue-reply.yml
+git commit -m "Add baseline issue reply workflow"
+git push
+git log --oneline
+    git add .github/workflows/issue-reply.yml
+git commit -m "Add baseline issue reply workflow"
+git push
+        console.log("Issue reply workflow executed successfully.
+        Here’s your exact move, Cal—no fluff, just the cleanest way to delete that conflicted file in VS Code:
+
+🧹 Delete .github/workflows/chatgpt-response.yml in VS Code
+- Open the Explorer panel
+- On the left sidebar, click the top icon that looks like two files stacked (Explorer)
+- Or press Ctrl+Shift+E
+- Navigate to the file
+- Expand the .github folder
+- Then expand workflows
+- Find chatgpt-response.yml
+- Right-click the file
+- Select “Delete”
+- Confirm deletion
+- Click “Yes” or “OK” when prompted
+
+🔁 After Deletion
+In PowerShell:
+git rm .github/workflows/chatgpt-response.yml
+git commit -m "Remove conflicted chatgpt-response workflow"
+git push --force-with-lease
+
+
+This clears the conflict and resets your workflow logic. Let me know if you want a fresh scaffold to rebuild the file—GPT-powered, baseline, or hybrid. I’ll drop it instantly.
+
+name: Issue Auto Reply
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  reply:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Reply to issue
+        uses: actions/github-script@v6
+        with:
+          script: |
+            github.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: "✅ Issue received. Thanks for reaching out!"
+            })
+            
